@@ -1,0 +1,127 @@
+/* src/pages/RegisterPage.css */
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.register-box {
+    background: #fff;
+    padding: 2.5em;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+}
+
+.register-title {
+    margin-bottom: 1.5em;
+    color: #333;
+    font-weight: 700;
+    font-size: 2em;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.register-form input {
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.register-form label {
+    text-align: left;
+    color: #555;
+    font-size: 0.9em;
+}
+
+.register-button {
+    padding: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.register-button:hover {
+    background-color: #0056b3;
+}
+
+.login-link-text {
+    margin-top: 1.5em;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.login-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.error-message {
+    color: red;
+    margin-top: 1em;
+    font-size: 0.9em;
+}
+
+.success-message {
+    color: green;
+    margin-top: 1em;
+    font-size: 0.9em;
+}
+
+
+/* --- ESTILOS PARA LOS BOTONES DE ROL --- */
+.role-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espacio entre los botones */
+    margin-bottom: 1.5em;
+}
+
+.role-button {
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.role-button:hover {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.role-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.register-button.cancel-button {
+  background-color: #f44336;
+  border: 1px solid #d32f2f; /* Una línea para mayor contraste */
+}
+
+.register-button.cancel-button:hover {
+  background-color: #d32f2f;
+}

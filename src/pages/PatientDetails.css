@@ -1,0 +1,209 @@
+/* PatientDetails.css */
+
+/* Contenedor principal */
+.patient-details-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+    font-size: 1.8rem;
+}
+
+.dashboard-header button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.dashboard-header button:hover {
+    background-color: #45a049;
+}
+
+/* Perfil */
+.profile-section, .measurements-chart-section, .measurements-table-section, .alerts-table-section {
+    margin-bottom: 30px;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+.profile-info button {
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    background-color: #2196F3;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-info button:hover {
+    background-color: #1976D2;
+}
+
+.profile-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profile-form button {
+    margin-top: 12px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-form button:hover {
+    background-color: #45a049;
+}
+
+/* Contenedor gráfica */
+.chart-container {
+    margin-top: 1px;
+}
+
+
+
+/* Filtros */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.filters-container label {
+    margin-right: 4px;
+    font-weight: bold;
+}
+
+.filters-container input, .filters-container select {
+
+    width: 99px; /* ancho por defecto */
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filters-container button {
+    padding: 6px 12px;
+    border: none;
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filters-container button:hover {
+    background-color: #d32f2f;
+}
+
+/* Tablas */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center; /* Centrado */
+}
+
+.data-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.data-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.data-table button {
+    padding: 4px 8px;
+    border: none;
+    background-color: #2196F3;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.data-table button:hover {
+    background-color: #1976D2;
+}
+
+.data-table input[type="number"] {
+    width: 60px;
+    padding: 4px;
+    text-align: center;
+}
+
+/* Badges alertas */
+.alert-type-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.alert-type-badge {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.alert-type-badge.roja {
+    background-color: red; /* círculo rojo */
+}
+
+.alert-type-badge.amarilla {
+    background-color: yellow; /* círculo amarillo */
+}
+
+/* Centrado general */
+.center-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Inputs checkbox centrados */
+.data-table input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}

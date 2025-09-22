@@ -1,0 +1,98 @@
+/* src/pages/LoginPage.css */
+
+/* --- Paso 1: Importar la fuente de Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.login-box {
+    background: #fff;
+    padding: 2.5em;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Nuevos estilos para la cabecera  */
+.login-header {
+    margin-bottom: 1em;
+}
+
+.login-logo {
+    width: 400px;
+    height: auto;
+    margin-bottom: 0.5em;
+}
+/* Fin de los nuevos estilos  */
+
+/* --- Paso 2: Aplicar la fuente a los títulos --- */
+.login-header h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 650; /* Negrita */
+    font-size: 1.9em;
+    text-transform: uppercase; /* Opcional: para que se vea como en la imagen */
+}
+
+.login-title {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 520;
+    font-size: 1.7em;
+    color: #333;
+    margin-bottom: 1.5em;
+    
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+}
+
+.login-input {
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.login-button {
+    padding: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.register-link-text {
+    margin-top: 1.5em;
+    font-size: 0.75em;
+    color: #555;
+}
+
+.register-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.error-message {
+    color: red;
+    margin-top: 1em;
+    font-size: 0.9em;
+}

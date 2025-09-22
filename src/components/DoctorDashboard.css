@@ -1,0 +1,290 @@
+.doctor-dashboard-container {
+    padding: 20px;
+    max-width: 1200px; /* Puedes aumentar este valor si quieres más espacio general */
+    margin: 0 auto;
+    background-color: #f4f7f9;
+    font-family: Arial, sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.doctor-welcome-message h1 {
+    color: #333;
+    font-size: 28px;
+    margin: 0;
+}
+
+.doctor-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.doctor-logout-button, .doctor-create-patient-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doctor-logout-button:hover, .doctor-create-patient-button:hover {
+    background-color: #0056b3;
+}
+
+/* === Diseño de dos columnas para perfil y pacientes === */
+.dashboard-content {
+    display: grid;
+    /* La primera columna para el perfil (ancho fijo de 300px), la segunda para la tabla (el resto del espacio) */
+    grid-template-columns: 300px 1fr;
+    gap: 20px; /* Espacio entre las dos secciones */
+}
+
+/* === PERFIL igual al paciente === */
+.profile-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.profile-title {
+    color: #333;
+    margin-top: 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.edit-profile-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+.edit-profile-button:hover {
+    background-color: #218838;
+}
+
+/* === Sección de pacientes === */
+.doctor-dashboard-section {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+}
+
+.doctor-dashboard-section h2 {
+    color: #333;
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* --- ESTILOS DE LOS FILTROS (ACTUALIZADOS) --- */
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-form input,
+.filter-form select {
+    padding: 10px 12px;
+    border: 1px solid #dcdfe6;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #303133;
+    transition: all 0.2s ease-in-out;
+}
+
+.filter-form input:focus,
+.filter-form select:focus {
+    border-color: #409eff;
+    box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+    outline: none;
+}
+
+.filter-form label {
+    font-size: 14px;
+    color: #606266;
+    font-weight: bold;
+}
+
+/* ➡️ ESTO ES LO QUE NECESITAS CAMBIAR ⬅️ */
+/* Este selector apunta a la etiqueta "Hasta" (la tercera etiqueta de texto en el formulario) */
+.filter-form label:nth-of-type(3) {
+    margin-left: 0;
+    /* Esto crea un bloque invisible que fuerza un salto de línea */
+    content: "";
+    display: block;
+    width: 100%;
+}
+
+.filter-form button {
+    background-color: #f56c6c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.filter-form button:hover {
+    background-color: #ec5050;
+}
+
+/* Estilos para el campo de Cédula */
+.filter-form input[name="cedula"] {
+    max-width: 100px;
+    flex-grow: 0;
+}
+
+/* --- ESTILOS DE LA TABLA (MODIFICADOS) --- */
+.doctor-table-responsive {
+    overflow-x: auto;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.doctor-data-table {
+    max-width: 800px;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+.doctor-data-table th, .doctor-data-table td {
+    padding: 12px 15px;
+    border: 1px solid #eee;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.doctor-data-table th {
+    background-color: #e9ecef;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.doctor-data-table tbody tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.doctor-data-table tbody tr:hover {
+    background-color: #e2f0fb;
+}
+
+/* El resto de los estilos no necesitan cambios */
+.doctor-no-data-message {
+    text-align: center;
+    color: #777;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.doctor-view-button {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.doctor-view-button:hover {
+    background-color: #138496;
+}
+
+/* Loader y mensajes */
+.doctor-loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 24px;
+    color: #007bff;
+}
+
+.doctor-error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+}
+
+.doctor-delete-button {
+    background-color: #dc3545; /* rojo estilo "danger" */
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.doctor-delete-button:hover {
+    background-color: #c82333; /* rojo más oscuro al pasar el mouse */
+}
