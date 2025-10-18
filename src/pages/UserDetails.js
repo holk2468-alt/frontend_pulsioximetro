@@ -150,17 +150,6 @@ function UserDetails() {
         }
     };
 
-    // Alertas
-    const handleAlertEdit = async (id, valor) => {
-        try {
-            const token = localStorage.getItem('token');
-            await updateAlert(token, id, { leida: valor });
-            setAlerts(prev => prev.map(a => a.id === id ? { ...a, leida: valor } : a));
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
     // Función para eliminar alerta
     const handleDeleteAlert = async (id) => {
         if (window.confirm(`¿Estás seguro de que deseas eliminar la alerta con ID ${id}?`)) {
@@ -215,49 +204,31 @@ function UserDetails() {
                 <button onClick={() => navigate(-1)}>Volver</button>
             </header>
 
-            {/* Perfil editable */}
+            {/* Perfil */}
             {patientProfile && (
                 <section className="profile-section">
                     <h2>Perfil del Usuario</h2>
-                    {!isEditingProfile ? (
-                        <div className="profile-info">
-                            <p><strong>Nombre:</strong> {patientProfile.nombre}</p>
-                            <p><strong>Apellido:</strong> {patientProfile.apellido}</p>
-                            <p><strong>Cédula:</strong> {patientProfile.cedula}</p>
-                            <p><strong>Género:</strong> {patientProfile.genero}</p>
-                            <p><strong>Fecha de Nacimiento:</strong> {patientProfile.fecha_nacimiento}</p>
-                            <p><strong>Rol:</strong> {patientProfile.rol}</p>
-                            <button onClick={() => navigate(`/edit-user/${patientProfile.cedula}`)}>
-                                Editar Perfil
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="profile-form">
-                            <label>Nombre:</label>
-                            <input value={editableProfile.nombre} onChange={e => setEditableProfile({ ...editableProfile, nombre: e.target.value })} />
-                            <label>Apellido:</label>
-                            <input value={editableProfile.apellido} onChange={e => setEditableProfile({ ...editableProfile, apellido: e.target.value })} />
-                            <label>Cédula:</label>
-                            <input value={editableProfile.cedula} onChange={e => setEditableProfile({ ...editableProfile, cedula: e.target.value })} />
-                            <label>Contraseña:</label>
-                            <input type="password" value={editableProfile.contrasena} onChange={e => setEditableProfile({ ...editableProfile, contrasena: e.target.value })} />
-                            <label>Género:</label>
-                            <input value={editableProfile.genero} onChange={e => setEditableProfile({ ...editableProfile, genero: e.target.value })} />
-                            <label>Fecha de Nacimiento:</label>
-                            <input type="date" value={editableProfile.fecha_nacimiento} onChange={e => setEditableProfile({ ...editableProfile, fecha_nacimiento: e.target.value })} />
-                            <button onClick={handleProfileSave}>Guardar</button>
-                        </div>
-                    )}
+                    <div className="profile-info">
+                        <p><strong>Nombre:</strong> {patientProfile.nombre}</p>
+                        <p><strong>Apellido:</strong> {patientProfile.apellido}</p>
+                        <p><strong>Cédula:</strong> {patientProfile.cedula}</p>
+                        <p><strong>Género:</strong> {patientProfile.genero}</p>
+                        <p><strong>Fecha de Nacimiento:</strong> {patientProfile.fecha_nacimiento}</p>
+                        <p><strong>Rol:</strong> {patientProfile.rol}</p>
+                        <button onClick={() => navigate(`/edit-user/${patientProfile.cedula}`)}>
+                            Editar Perfil
+                        </button>
+                    </div>
                 </section>
             )}
 
-            {/* Contenedor gráfico */}
+            {/* Gráfico */}
             <section className="measurements-chart-section">
                 <h2>Gráfico de Mediciones</h2>
                 <ResponsiveContainer width="100%" height={400}>
                     <LineChart data={measurements.map(m => ({ ...m, fecha: formatDateTime(m.fecha_hora) }))}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="fecha" reversed={true} />
+                        <XAxis dataKey="fecha" reversed />
                         <YAxis />
                         <Tooltip />
                         <Legend />
@@ -309,32 +280,21 @@ function UserDetails() {
                                         <th>SpO2</th>
                                         <th>Fecha</th>
                                         <th>Editar</th>
-                                        <th>Acciones</th> 
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {measurements.map(m => (
                                         <tr key={m.id}>
                                             <td>{m.id}</td>
-                                            <td>{editingMeasurementId === m.id ? (
-                                                <input type="number" value={editedMeasurement.ritmo_cardiaco} onChange={e => setEditedMeasurement({ ...editedMeasurement, ritmo_cardiaco: parseInt(e.target.value) })} />
-                                            ) : m.ritmo_cardiaco}</td>
-                                            <td>{editingMeasurementId === m.id ? (
-                                                <input type="number" value={editedMeasurement.spo2} onChange={e => setEditedMeasurement({ ...editedMeasurement, spo2: parseInt(e.target.value) })} />
-                                            ) : m.spo2}</td>
+                                            <td>{m.ritmo_cardiaco}</td>
+                                            <td>{m.spo2}</td>
                                             <td>{formatDateTime(m.fecha_hora)}</td>
                                             <td>
-                                                {editingMeasurementId === m.id ? (
-                                                    <button onClick={() => handleMeasurementSave(m.id)}>Guardar</button>
-                                                ) : (
-                                                    <button onClick={() => handleMeasurementEditClick(m)}>Editar</button>
-                                                )}
+                                                <button onClick={() => handleMeasurementEditClick(m)}>Editar</button>
                                             </td>
                                             <td>
-                                                <button
-                                                    onClick={() => handleDeleteMeasurement(m.id)}
-                                                    style={{ backgroundColor: '#f44336' }}
-                                                >
+                                                <button onClick={() => handleDeleteMeasurement(m.id)} style={{ backgroundColor: '#f44336' }}>
                                                     Eliminar
                                                 </button>
                                             </td>
@@ -393,8 +353,8 @@ function UserDetails() {
                                         <th>Fecha</th>
                                         <th>Tipo</th>
                                         <th>Mensaje</th>
-                                        <th>Leída</th>
-                                        <th>Acciones</th> {/* <-- NUEVA COLUMNA */}
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -405,18 +365,9 @@ function UserDetails() {
                                             <td>{formatDateTime(a.fecha_hora)}</td>
                                             <td><span className={getAlertTypeClass(a.tipo_alerta)}></span></td>
                                             <td>{a.mensaje}</td>
+                                            <td>{a.leida ? 'Leída' : 'No leída'}</td>
                                             <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={a.leida || false}
-                                                    onChange={e => handleAlertEdit(a.id, e.target.checked)}
-                                                />
-                                            </td>
-                                            <td> {/* <-- CELDA CON EL NUEVO BOTÓN */}
-                                                <button
-                                                    onClick={() => handleDeleteAlert(a.id)}
-                                                    style={{ backgroundColor: '#f44336' }} // Estilo para el botón de eliminar
-                                                >
+                                                <button onClick={() => handleDeleteAlert(a.id)} style={{ backgroundColor: '#f44336' }}>
                                                     Eliminar
                                                 </button>
                                             </td>
