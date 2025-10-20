@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-// Asegúrate de que updateMeasurement está disponible
 import { getUsers, getMeasurements, getAlerts, updateMeasurement, updateAlert, updateUser, deleteMeasurement, deleteAlert } from '../services/apiService';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
-import './PatientDetails.css'; // Usamos el mismo CSS para mantener el estilo
+import './PatientDetails.css'; 
 
 function UserDetails() {
     const { cedula } = useParams();
@@ -129,9 +128,7 @@ function UserDetails() {
     const handleMeasurementSave = async (id) => {
         try {
             const token = localStorage.getItem('token');
-            // Nota: Aquí se está pasando solo editedMeasurement, el backend debe ignorar campos prohibidos.
             await updateMeasurement(token, id, editedMeasurement); 
-            // Actualiza la lista de mediciones localmente con los nuevos datos
             setMeasurements(prev => prev.map(m => m.id === id ? { ...m, ...editedMeasurement } : m));
             setEditingMeasurementId(null); // Sale del modo de edición
         } catch (err) {
@@ -293,7 +290,7 @@ function UserDetails() {
                                         <tr key={m.id}>
                                             <td>{m.id}</td>
                                             
-                                            {/* *** INICIO DEL CAMBIO NECESARIO (BPM) *** */}
+                                            {/* *** CAMBIO ESENCIAL: BPM EDITABLE *** */}
                                             <td>
                                                 {editingMeasurementId === m.id ? (
                                                     <input
@@ -306,9 +303,8 @@ function UserDetails() {
                                                     m.ritmo_cardiaco
                                                 )}
                                             </td>
-                                            {/* *** FIN DEL CAMBIO NECESARIO (BPM) *** */}
                                             
-                                            {/* *** INICIO DEL CAMBIO NECESARIO (SpO2) *** */}
+                                            {/* *** CAMBIO ESENCIAL: SpO2 EDITABLE *** */}
                                             <td>
                                                 {editingMeasurementId === m.id ? (
                                                     <input
@@ -321,37 +317,27 @@ function UserDetails() {
                                                     m.spo2
                                                 )}
                                             </td>
-                                            {/* *** FIN DEL CAMBIO NECESARIO (SpO2) *** */}
 
                                             <td>{formatDateTime(m.fecha_hora)}</td>
                                             
-                                            {/* *** LÓGICA MÍNIMA DEL BOTÓN EDITAR *** */}
+                                            {/* *** LÓGICA MÍNIMA DEL BOTÓN EDITAR/GUARDAR *** */}
                                             <td>
                                                 <button 
                                                     onClick={() => {
                                                         if (editingMeasurementId === m.id) {
-                                                            // Si ya está en edición, Guarda
+                                                            // Si ya está en edición, Guarda y sale del modo de edición
                                                             handleMeasurementSave(m.id);
                                                         } else {
-                                                            // Si no está en edición, Activa la edición
+                                                            // Si no está en edición, Activa el modo de edición
                                                             handleMeasurementEditClick(m);
                                                         }
                                                     }}
                                                 >
-                                                    {/* Mostrar "Guardar" si está editando para guiar al usuario */}
+                                                    {/* El texto del botón cambia según el estado de edición */}
                                                     {editingMeasurementId === m.id ? 'Guardar' : 'Editar'}
                                                 </button>
-
-                                                {/* Se agrega un botón de cancelar, ya que es la única manera de salir
-                                                    del modo de edición sin guardar si el usuario cambia de opinión.
-                                                    Si no lo quiere, simplemente ignórelo en su copia. */}
-                                                {editingMeasurementId === m.id && (
-                                                    <button onClick={() => setEditingMeasurementId(null)} style={{ marginLeft: '5px', backgroundColor: '#9e9e9e' }}>
-                                                        X
-                                                    </button>
-                                                )}
                                             </td>
-                                            {/* *** FIN LÓGICA MÍNIMA DEL BOTÓN EDITAR *** */}
+                                            {/* *** FIN DEL CAMBIO MÍNIMO DEL BOTÓN *** */}
                                             
                                             <td>
                                                 <button onClick={() => handleDeleteMeasurement(m.id)} style={{ backgroundColor: '#f44336' }}>
