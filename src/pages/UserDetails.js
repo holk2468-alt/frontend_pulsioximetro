@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+// Asegúrate de que updateMeasurement está disponible
 import { getUsers, getMeasurements, getAlerts, updateMeasurement, updateAlert, updateUser, deleteMeasurement, deleteAlert } from '../services/apiService';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
