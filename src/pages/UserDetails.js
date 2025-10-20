@@ -119,7 +119,7 @@ function UserDetails() {
         return 'alert-type-badge';
     };
 
-    // Mediciones
+    // --- Lógica de Mediciones ---
     const handleMeasurementEditClick = (m) => {
         setEditingMeasurementId(m.id);
         setEditedMeasurement({ ritmo_cardiaco: m.ritmo_cardiaco, spo2: m.spo2 });
@@ -128,11 +128,14 @@ function UserDetails() {
     const handleMeasurementSave = async (id) => {
         try {
             const token = localStorage.getItem('token');
-            await updateMeasurement(token, id, editedMeasurement);
+            // Nota: Aquí se está pasando solo editedMeasurement, el backend debe ignorar campos prohibidos.
+            await updateMeasurement(token, id, editedMeasurement); 
+            // Actualiza la lista de mediciones localmente con los nuevos datos
             setMeasurements(prev => prev.map(m => m.id === id ? { ...m, ...editedMeasurement } : m));
-            setEditingMeasurementId(null);
+            setEditingMeasurementId(null); // Sale del modo de edición
         } catch (err) {
             console.error(err);
+            alert('Error al guardar la medición. Revisa la consola o los permisos del token.');
         }
     };
 
@@ -149,6 +152,7 @@ function UserDetails() {
             }
         }
     };
+    // ----------------------------
 
     // Función para eliminar alerta
     const handleDeleteAlert = async (id) => {
@@ -287,12 +291,67 @@ function UserDetails() {
                                     {measurements.map(m => (
                                         <tr key={m.id}>
                                             <td>{m.id}</td>
-                                            <td>{m.ritmo_cardiaco}</td>
-                                            <td>{m.spo2}</td>
-                                            <td>{formatDateTime(m.fecha_hora)}</td>
+                                            
+                                            {/* *** INICIO DEL CAMBIO NECESARIO (BPM) *** */}
                                             <td>
-                                                <button onClick={() => handleMeasurementEditClick(m)}>Editar</button>
+                                                {editingMeasurementId === m.id ? (
+                                                    <input
+                                                        type="number"
+                                                        value={editedMeasurement.ritmo_cardiaco}
+                                                        onChange={e => setEditedMeasurement({ ...editedMeasurement, ritmo_cardiaco: e.target.value })}
+                                                        style={{ width: '80px', textAlign: 'center' }}
+                                                    />
+                                                ) : (
+                                                    m.ritmo_cardiaco
+                                                )}
                                             </td>
+                                            {/* *** FIN DEL CAMBIO NECESARIO (BPM) *** */}
+                                            
+                                            {/* *** INICIO DEL CAMBIO NECESARIO (SpO2) *** */}
+                                            <td>
+                                                {editingMeasurementId === m.id ? (
+                                                    <input
+                                                        type="number"
+                                                        value={editedMeasurement.spo2}
+                                                        onChange={e => setEditedMeasurement({ ...editedMeasurement, spo2: e.target.value })}
+                                                        style={{ width: '80px', textAlign: 'center' }}
+                                                    />
+                                                ) : (
+                                                    m.spo2
+                                                )}
+                                            </td>
+                                            {/* *** FIN DEL CAMBIO NECESARIO (SpO2) *** */}
+
+                                            <td>{formatDateTime(m.fecha_hora)}</td>
+                                            
+                                            {/* *** LÓGICA MÍNIMA DEL BOTÓN EDITAR *** */}
+                                            <td>
+                                                <button 
+                                                    onClick={() => {
+                                                        if (editingMeasurementId === m.id) {
+                                                            // Si ya está en edición, Guarda
+                                                            handleMeasurementSave(m.id);
+                                                        } else {
+                                                            // Si no está en edición, Activa la edición
+                                                            handleMeasurementEditClick(m);
+                                                        }
+                                                    }}
+                                                >
+                                                    {/* Mostrar "Guardar" si está editando para guiar al usuario */}
+                                                    {editingMeasurementId === m.id ? 'Guardar' : 'Editar'}
+                                                </button>
+
+                                                {/* Se agrega un botón de cancelar, ya que es la única manera de salir
+                                                    del modo de edición sin guardar si el usuario cambia de opinión.
+                                                    Si no lo quiere, simplemente ignórelo en su copia. */}
+                                                {editingMeasurementId === m.id && (
+                                                    <button onClick={() => setEditingMeasurementId(null)} style={{ marginLeft: '5px', backgroundColor: '#9e9e9e' }}>
+                                                        X
+                                                    </button>
+                                                )}
+                                            </td>
+                                            {/* *** FIN LÓGICA MÍNIMA DEL BOTÓN EDITAR *** */}
+                                            
                                             <td>
                                                 <button onClick={() => handleDeleteMeasurement(m.id)} style={{ backgroundColor: '#f44336' }}>
                                                     Eliminar
